@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { ipAddress } from '../App'
+import { apiBaseUrl } from '../config'
 
 function Edit() {
     let { id } = useParams();
@@ -19,7 +19,7 @@ function Edit() {
         const getSinglePokemon = async () => {
             try {
                 setIsLoading(true);
-                const response = await axios.get(`http://${ipAddress}:8080/pokemon/${id}`);
+                const response = await axios.get(`${apiBaseUrl}/pokemon/${id}`);
                 setPokemon({
                     id: response.data.id,
                     number: response.data.number,
@@ -38,9 +38,8 @@ function Edit() {
     const updatePokemon = async (e) => {
         e.preventDefault();
         setIsLoading(true);
-        console.log(pokemon);
         try {
-            await axios.patch(`http://${ipAddress}:8080/pokemon/${id}`, pokemon);
+            await axios.patch(`${apiBaseUrl}/pokemon/${id}`, pokemon);
             setIsLoading(false);
             toast.success('Pokemon Updated Successfully');
             navigate('/');

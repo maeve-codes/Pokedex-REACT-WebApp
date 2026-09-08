@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import { ipAddress } from '../App';
+import { apiBaseUrl } from '../config';
 import Swal from 'sweetalert2';
 
 
@@ -20,7 +20,7 @@ function Pokemon({ pokemon, isLoading, getPokemon }) {
         });
         if (result.isConfirmed){
             try{
-                await axios.delete(`http://${ipAddress}:8080/pokemon/${id}`);
+                await axios.delete(`${apiBaseUrl}/pokemon/${id}`);
                 toast.success('Pokemon Deleted Successfully');
             } catch (error) {
                 toast.error(error.message);
@@ -57,6 +57,7 @@ function Pokemon({ pokemon, isLoading, getPokemon }) {
 Pokemon.propTypes = {
     pokemon: PropTypes.array.isRequired,
     isLoading: PropTypes.bool.isRequired,
+    getPokemon: PropTypes.func.isRequired,
 };
 
 export default Pokemon;

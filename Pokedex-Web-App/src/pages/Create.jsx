@@ -1,14 +1,13 @@
-import {useState, useEffect} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { ipAddress } from '../App'
+import { apiBaseUrl } from '../config'
 
 function Create() {
-    let { id } = useParams();
     const navigate = useNavigate();
     const [pokemon, setPokemon] = useState({
-        id: id,
+        id: "",
         name: "",
         number: 0,
         sprite: "",
@@ -18,9 +17,8 @@ function Create() {
     const addPokemon = async (e) => {
         e.preventDefault();
         setIsLoading(true);
-        console.log(pokemon);
         try {
-            await axios.post(`http://${ipAddress}:8080/pokemon/new`, pokemon);
+            await axios.post(`${apiBaseUrl}/pokemon/new`, pokemon);
             setIsLoading(false);
             toast.success('Pokemon Added Successfully');
             navigate('/');

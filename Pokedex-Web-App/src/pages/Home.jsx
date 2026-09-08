@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
 import axios from 'axios';
 import Pokemon from '../containers/Pokemon';
 import { toast } from 'react-toastify';
-import { ipAddress } from '../App';
+import { apiBaseUrl } from '../config';
 
 function Home() {
 
@@ -12,10 +12,11 @@ function Home() {
     const getPokemon = async () => {
         try {
             setIsLoading(true);
-            const response = await axios.get(`http://${ipAddress}:8080/pokemon`);
+            const response = await axios.get(`${apiBaseUrl}/pokemon`);
             setPokemon(response.data);
             setIsLoading(false);
         } catch (error) {
+            setIsLoading(false);
             toast.error(error.message);
         }
     }

@@ -25,4 +25,3 @@ function App() {
 }
 
 export default App;
-export const ipAddress = '10.2.15.139';
